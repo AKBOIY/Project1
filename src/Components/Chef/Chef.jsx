@@ -16,7 +16,7 @@ import axios from "axios"
 
 const Chef = () => {
     const [loading, setLoading] = useState(false);
-    const nav=useNavigate()
+    const nav = useNavigate()
     // const[showPassword,setShowPssword]=useState(false)
 
     // const handleShowPassword =()=> {
@@ -30,7 +30,7 @@ const Chef = () => {
         password: yup.string().matches("").required(""),
     });
 
-    const { register, handleSubmit, formState:{errors}, } = useForm({
+    const { register, handleSubmit, formState: { errors }, } = useForm({
         resolver: yupResolver(schema),
     });
 
@@ -42,11 +42,11 @@ const Chef = () => {
                 data
             );
             const userInformation = res.data.data
-            localStorage.setItem("userInformation", JSON.stringify({ id: userInformation._id, name: userInformation.userName, email: userInformation.email }))
+            localStorage.setItem("userInformation", JSON.stringify(userInformation))
             nav("/login")
-            console.log(userInformation)
             setLoading(false);
         } catch (err) {
+            setLoading(false);
             console.log(err, "err message");
         }
     };
@@ -92,8 +92,8 @@ const Chef = () => {
                             </div>
                             <div className="SignUpContentDownFormPhoneInputs">
                                 <input
-                                    type='email' placeholder='Input Email' 
-                                    {...register("email")} 
+                                    type='email' placeholder='Input Email'
+                                    {...register("email")}
                                 />
                             </div>
                             <p style={{ color: "red" }}> {errors.email?.message}</p>

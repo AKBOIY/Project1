@@ -6,23 +6,21 @@ import Select from "./Components/SignUp/Select"
 import Chef from "./Components/Chef/Chef"
 import MainPage from "./Components/MainPage/MainPage"
 import Allrecipes from "./Components/Allrecipes/Allrecipes"
+import GetUser from "./Components/GetUser/GetUser"
 
 
 function App() {
   return (
     <>
-
       {/* <HomePage/> */}
       < Routes >
-      <Route path='/' element={<HomePage />} />
-         <Route path='/MainPage' element={<MainPage />} />
+        <Route path='/' element={<MainPage />} />
         < Route path='/Login' element={<Login />} />
         < Route path='/Select' element={<Select />} />
         < Route path='/signup' element={<SignUp />} />
         < Route path='/Chef' element={<Chef />} />
-        < Route path='/Allrecipes' element={<Allrecipes />} />
-        
-
+        < Route path='/Allrecipes/:id' element={<Allrecipes />} />
+        < Route path='/GetUser' element={<GetUser />} />
       </Routes ></>
 
   )

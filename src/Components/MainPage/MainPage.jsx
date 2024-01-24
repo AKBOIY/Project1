@@ -6,6 +6,9 @@ import { FaTwitter } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaSignInAlt } from "react-icons/fa";
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -15,19 +18,53 @@ import { FaSignInAlt } from "react-icons/fa";
 const MainPage = () => {
     const Nav = useNavigate();
     const [data, setData] = useState()
+    const [loading, setLoading] = useState(false)
+    const [recipe, setRecipe] = useState()
+
+
+    const getAll = async (data) => {
+        try {
+            setLoading(true);
+            const res = await axios.get(
+                " https://recipetastebud.onrender.com/api/v1/viewall"
+
+            );
+            setRecipe(res?.data?.data)
+            setLoading(false);
+        } catch (err) {
+            setLoading(false)
+            console.log(err, "err message");
+        }
+    };
 
 
 
     useEffect(() => {
+        getAll()
         const userData = localStorage.getItem("userInformation")
         setData(userData)
     }, [])
 
+    useEffect(() => {
+        console.log(loading);
+        console.log(recipe?.[0]
+        );
+    }, [loading, recipe])
 
     return (
         <>
             <div className='homepagebody'>
+
                 <div className='homepageheader'>
+                    <div className='loadingstate' >
+                        <ClipLoader
+                            color="red"
+                            loading={loading}
+                            size={100}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    </div>
                     <div className='leftlogo'>
                         <img src="./public/pineapple.jpeg" alt="" />
                         <span>TasteBudRecipe</span>
@@ -41,7 +78,7 @@ const MainPage = () => {
                         </ul>
                     </div>
                     <div className='righthead1'>
-                        {data? <img src="./gif.png" alt="" /> :
+                        {data ? <img src="./gif.png" alt="" /> :
                             <div className='righthead'>
                                 <button onClick={() => Nav('/Login')}><FaUser /> LOGIN</button>
                                 <button onClick={() => Nav('/Select')}><FaSignInAlt /> SIGN UP</button>
@@ -56,30 +93,14 @@ const MainPage = () => {
                     <h1>RECIPES OF THE WEEK</h1>
                 </div>
                 <div className='fourpix'>
-                    <div className='fourpix1'>
-                        <img src="./public/soup.jpg" alt="" />
-                        <div className='fourpix1text'>
-                            <h1>SOUP</h1>
-                        </div>
-                    </div>
-                    <div className='fourpix2'>
-                        <img src="./public/pasta.jpg" alt="" />
-                        <div className='fourpix2text'>
-                            <h1>PASTA</h1>
-                        </div>
-                    </div>
-                    <div className='fourpix3'>
-                        <img src="./public/stew.jpg" alt="" />
-                        <div className='fourpix3text'>
-                            <h1>STEW</h1>
-                        </div>
-                    </div>
-                    <div className='fourpix4'>
-                        <img src="./public/rice.jpg" alt="" />
-                        <div className='fourpix4text'>
-                            <h1>RICE</h1>
-                        </div>
-                    </div>
+                    {recipe?.map((i) => (
+                        <NavLink className='fourpix1' to={!data ? "/Login" : `/Allrecipes/${i._id}`}>
+                            <img src={i?.profilePicture?.url} alt="" />
+                            <div className='fourpix1text'>
+                                <h1>{i?.title}</h1>
+                            </div>
+                        </NavLink>
+                    ))}
 
                 </div>
                 <div className='footer'>
@@ -103,18 +124,10 @@ const MainPage = () => {
                         <FaTwitter />
                         <FaYoutube />
                         <FaFacebookF />
-
-
-
-
-
                     </div>
 
                 </div>
-
-
             </div>
-
         </>
     )
 }

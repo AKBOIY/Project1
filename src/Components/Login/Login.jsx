@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import axios from "axios"
-
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Login = () => {
-    const[loading, setLoading]=useState(false)
+    const [loading, setLoading] = useState(false)
 
     const nav = useNavigate();
 
@@ -30,20 +30,19 @@ const Login = () => {
                 data
             );
             const userInformation = res.data
-            localStorage.setItem("userInformation", JSON.stringify({ id: userInformation._id, email: userInformation.email, password:userInformation.password }))
+            localStorage.setItem("userInformation", JSON.stringify(userInformation))
             nav("/")
             console.log(userInformation)
             setLoading(false);
         } catch (err) {
             setLoading(false)
             console.log(err, "err message");
-
         }
     };
-    useEffect(()=>{
+    useEffect(() => {
         console.log(loading)
 
-    },[loading])
+    }, [loading])
 
     return (
         <>
@@ -61,29 +60,36 @@ const Login = () => {
                         </div>
                         <div className='email'>
                             <span>Email address</span>
-                            <input 
-                            type="email"
-                            name='email'
-                             {...register("email")} 
-                              />
+                            <input
+                                type="email"
+                                name='email'
+                                {...register("email")}
+                            />
                         </div>
                         {errors["email"] && <span style={{ color: "red", }}> {errors.email?.message}</span>}
                         <div className='pass'>
                             <span>Password</span>
-                            <input type="text" 
-                            name='password' 
-                             {...register("password")} 
+                            <input type="text"
+                                name='password'
+                                {...register("password")}
                             />
                         </div>
                         {errors["password"] && <p style={{ color: "red" }}> {errors.password?.message}</p>}
                         <div className='cont'>
                             <div className='continue' onClick={handleSubmit(onSubmit)}>
-                                <span onClick={()=> nav ('/MainPage')}>continue</span>
+                                <span >continue</span>
+                                <ClipLoader
+                                    color="red"
+                                    loading={loading}
+                                    size={30}
+                                    aria-label="Loading Spinner"
+                                    data-testid="loader"
+                                />
                             </div>
 
                         </div>
                         <div className='noaccount'>
-                            <p>No account? <span onClick={()=> nav ('/Select')}>Sign up</span></p>
+                            <p>No account? <span onClick={() => nav('/Select')}>Sign up</span></p>
                         </div>
 
                     </div>

@@ -72,6 +72,7 @@
     flex-direction: column;
     gap: 30px;
     color: orange;
+    text-decoration: none;
 }
 .bodyboxi p{
     font-size: x-large;
@@ -79,8 +80,8 @@
 }
 
 .bodyboxii{
-    width: 27%;
-    height: 90%;
+    min-width: 27%;
+    min-height: 90%;
     background-color: orange;
     border-radius: 5px;
     box-shadow: 1px 0px 17px -1px rgba(0,0,0,0.75);
@@ -92,6 +93,7 @@
     flex-direction: column;
     gap: 30px;
     color: white;
+    text-decoration: none;
     
 }
 .bodyboxii p{
@@ -137,4 +139,8 @@
     gap: 10px;
     border: solid 1px black;
     cursor: pointer;
+    text-decoration: none;
+}
+.downbackbutton span{
+    text-decoration: none;
 }

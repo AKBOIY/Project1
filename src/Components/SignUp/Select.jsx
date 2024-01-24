@@ -24,20 +24,18 @@ const Select = () => {
                 <div className="bodyboxing">
                     <div className="bodybox">
                         <div className="bodybox3">
-                            <div className="bodyboxi">
-                                <GiCookingPot style={{ width: "100%", height: "50%" }} />
-                                <Link to="/Chef">
-                                    <p style={{color:"orange"}}>Chef</p>
-
-                                </Link>
-
-                            </div>
-                            <div className="bodyboxii">
-                                <SlUserFollowing style={{ width: "100%", height: "50%" }} />
-                                <Link to="/SignUp">
-                                   <p style={{color:"white"}}>User</p>
-                                </Link>
-                            </div>
+                            <Link to="/Chef" className="bodyboxi">
+                                <div >
+                                    <GiCookingPot style={{ width: "100%", height: "50%" }} />
+                                    <p style={{ color: "orange" }}>Chef</p>
+                                </div>
+                            </Link>
+                            <Link className="bodyboxii" to="/SignUp">
+                                <div >
+                                    <SlUserFollowing style={{ width: "100%", height: "50%" }} />
+                                    <p style={{ color: "white" }}>User</p>
+                                </div>
+                            </Link>
                         </div>
                         <div className="bodyboxtext">
                             <p>You will only have permission to view the context
@@ -45,21 +43,21 @@ const Select = () => {
                         </div>
 
                     </div>
-                    
+
 
                 </div>
                 <div className="downback">
                     <div className="downbackbutton">
                         <button>
-                        <FaBackward />
-                        <Link to="/SignUp">
-                        <span>BACK</span>
-                        </Link>
-                        
+                            <FaBackward />
+                            <Link to="/SignUp">
+                                <span>BACK</span>
+                            </Link>
+
                         </button>
 
                     </div>
-                    
+
                 </div>
 
             </div>
